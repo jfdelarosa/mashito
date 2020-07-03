@@ -1,7 +1,12 @@
 <template>
   <div>
-    <h1>App</h1>
-    <nuxt-link to="/">Ir al index</nuxt-link>
+    <h1>Pagina 1</h1>
+    <div>
+      <nuxt-link to="/">Ir al index</nuxt-link>
+    </div>
+    <div>
+      <nuxt-link to="/app/prueba">Ir a otra pagina</nuxt-link>
+    </div>
     <pre>{{ val }}</pre>
   </div>
 </template>
