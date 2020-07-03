@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main class="app-bg">
       <v-container>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -38,3 +38,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.app-bg {
+  background: #f0f0f0;
+}
+</style>
