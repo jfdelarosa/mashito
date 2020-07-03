@@ -55,24 +55,25 @@ export default {
     // Doc: https://firebase.nuxtjs.org/guide/getting-started
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // [
-    //   '@nuxtjs/firebase',
-    //   {
-    //     config: {
-    //       apiKey: '<apiKey>',
-    //       authDomain: '<authDomain>',
-    //       databaseURL: '<databaseURL>',
-    //       projectId: '<projectId>',
-    //       storageBucket: '<storageBucket>',
-    //       messagingSenderId: '<messagingSenderId>',
-    //       appId: '<appId>',
-    //       measurementId: '<measurementId>',
-    //     },
-    //     services: {
-    //       auth: true, // Just as example. Can be any other service.
-    //     },
-    //   },
-    // ],
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyAFrK_AIeZ5hIGwUVxDaJnVrHl-aM1LlhM',
+          authDomain: 'mashito.firebaseapp.com',
+          databaseURL: 'https://mashito.firebaseio.com',
+          projectId: 'mashito',
+          storageBucket: 'mashito.appspot.com',
+          messagingSenderId: '554717840682',
+          appId: '1:554717840682:web:b3d9227e7c87024e9dca53',
+          measurementId: 'G-JY7C8YJ5G6',
+        },
+        services: {
+          auth: false,
+          realtimeDb: true,
+        },
+      },
+    ],
   ],
   /*
    ** Axios module configuration
