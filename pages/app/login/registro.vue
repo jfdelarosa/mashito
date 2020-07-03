@@ -32,8 +32,13 @@
                 v-btn(color="primary" @click="step = 2" :disabled="selectedProfile === null" block) Siguiente
           v-stepper-content(step="2")
             v-card
-              v-btn(color="primary" @click="step = 3" block) Siguiente
-              v-btn(@click="step = 1" block text) Anterior
+              v-card-title Datos básicos
+              v-card-text
+                v-form(ref="step2" v-model="step2.valid")
+                  v-text-field(label="Nombres" :rules="step2.rules.nombres" outlined required)
+                  v-text-field(label="Apellidos" :rules="step2.rules.apellidos" outlined required)
+                  v-btn(color="primary" @click="step =3" :disabled="!step2.valid" block) Siguiente
+                  v-btn(@click="step = 1" block text) Anterior
           v-stepper-content(step="3")
             v-card
               v-btn(color="primary" @click="step = 2" block) Finalizar
@@ -54,6 +59,13 @@ export default {
   data: () => ({
     step: 1,
     selectedProfile: null,
+    step2: {
+      valid: false,
+      rules: {
+        nombres: [(v) => !!v || 'El nombre es requerido'],
+        apellidos: [(v) => !!v || 'Los apellidos son requeridos'],
+      },
+    },
   }),
   methods: {
     elegir(n) {
@@ -64,7 +76,7 @@ export default {
       console.log(perfil)
     },
     submitForm() {
-      this.$refs.form.validate()
+      this.$refs.step2.validate()
     },
   },
 }
