@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <h1>Pagina 1</h1>
-    <div>
-      <nuxt-link to="/">Ir al index</nuxt-link>
-    </div>
-    <div>
-      <nuxt-link to="/app/prueba">Ir a otra pagina</nuxt-link>
-    </div>
-    <pre>{{ val }}</pre>
-  </div>
+  <v-card>
+    <v-card-title>Pagina 1</v-card-title>
+    <v-card-text>
+      <pre>{{ val }}</pre>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
