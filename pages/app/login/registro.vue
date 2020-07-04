@@ -64,8 +64,8 @@
                   v-autocomplete(v-model="formData.municipio" :items="mexico[formData.estado]" label="Municipio" v-if="formData.estado" autocomplete="off" outlined)
                   v-text-field(label="Dirección" v-model="formData.direccion" :rules="step3.rules.direccion" v-if="formData.municipio" outlined required)
 
-                  v-btn(color="primary" @click="step = 3" :disabled="!step3.valid" block) Siguiente
-                  v-btn(@click="step = 1" block text) Anterior
+                  v-btn(color="primary" @click="finish" :disabled="!step3.valid" block) Siguiente
+                  v-btn(@click="step = 2" block text) Anterior
 </template>
 <script>
 import mexico from '@/static/mexico.json'
@@ -123,7 +123,22 @@ export default {
     submitForm() {
       this.$refs.step2.validate()
     },
+    saveUserData(data) {
+      this.$fireDb
+        .ref(`usuarios/${this.uid}`)
+        .update(data)
+        .then((response) => {
+          this.step = 3
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     register() {
+      if (!this.step2.valid) {
+        return
+      }
       const { email, password1 } = this.formData
       this.$set(this.step2, 'loading', true)
       this.$fireAuth
@@ -131,7 +146,10 @@ export default {
         .then((response) => {
           console.log(response)
           this.uid = response.user.uid
-          this.step = 3
+          this.saveUserData({
+            uid: response.user.uid,
+            email: response.user.email,
+          })
         })
         .catch((error) => {
           console.log(error)
@@ -139,6 +157,17 @@ export default {
         .finally(() => {
           this.$set(this.step2, 'loading', false)
         })
+    },
+    finish() {
+      if (!this.step3.valid) {
+        return
+      }
+
+      const { nombres, apellidos, estado, municipio, direccion } = this.formData
+
+      this.saveUserData({ nombres, apellidos, estado, municipio, direccion })
+
+      this.$router.push('/app')
     },
   },
 }

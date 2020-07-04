@@ -3,11 +3,13 @@ export const state = () => ({
 })
 
 export const mutations = {
-  updateUser(state, { key, value }) {
+  updateUser(state, payload) {
     if (state.user === null) {
       state.user = {}
     }
-    state.user[key] = value
+    for (const key of Object.keys(payload)) {
+      state.user[key] = payload[key]
+    }
   },
   logout(state) {
     state.user = null

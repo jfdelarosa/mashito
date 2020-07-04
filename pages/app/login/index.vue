@@ -27,16 +27,20 @@ export default {
     },
   }),
   methods: {
+    getUser(uid) {
+      this.$fireDb.ref(`/usuarios/${uid}`).on('value', (snapshot) => {
+        const response = snapshot.val()
+
+        this.$store.commit('updateUser', response)
+      })
+    },
     submitForm() {
       if (this.valid) {
         this.loading = true
         this.$fireAuth
           .signInWithEmailAndPassword(this.email, this.password)
           .then((response) => {
-            this.$store.commit('updateUser', {
-              key: 'uid',
-              value: response.user.uid,
-            })
+            this.getUser(response.user.uid)
             this.$router.push('/app/')
           })
           .catch((error) => {
