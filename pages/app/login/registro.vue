@@ -32,34 +32,66 @@
                 v-btn(color="primary" @click="step = 2" :disabled="selectedProfile === null" block) Siguiente
           v-stepper-content(step="2")
             v-card
-              v-card-title Datos básicos
-              v-card-text
-                v-form(ref="step2" v-model="step2.valid")
-                  v-text-field(label="Nombres" :rules="step2.rules.nombres" outlined required)
-                  v-text-field(label="Apellidos" :rules="step2.rules.apellidos" outlined required)
-                  v-btn(color="primary" @click="step =3" :disabled="!step2.valid" block) Siguiente
-                  v-btn(@click="step = 1" block text) Anterior
+              v-card
+                v-card-title Creación de cuenta
+                v-card-text
+                  v-row
+                    v-col
+                      v-form(ref="step2" v-model="step2.valid" lazy-validation)
+                        v-text-field(label="Correo electrónico" v-model="formData.email" outlined)
+                        v-text-field(label="Contraseña" type="password" v-model="formData.password1" :rules="[step2.rules.required, step2.rules.min]" hint="Al menos 5 caracteres" outlined counter)
+                        v-text-field(label="Repetir contraseña" type="password" v-model="formData.password2" :rules="[step2.rules.required, step2.rules.min, passwordMatch]" hint="Al menos 5 caracteres" outlined counter)
+                    v-col.col-auto
+                      v-divider(vertical)
+                    v-col
+                      p O registrate usando otras plataformas:
+                      v-btn.mb-6(color="#3b5998" dark block)
+                        v-icon(left) mdi-facebook
+                        | Entrar con Facebook
+                      v-btn.mb-6(color="#D44638" dark block)
+                        v-icon(left) mdi-google
+                        | Entrar con Google
+
+              v-btn(color="primary" @click="step = 3" block) Finalizar
+              v-btn(@click="step = 1" block text) Anterior
           v-stepper-content(step="3")
             v-card
-              v-btn(color="primary" @click="step = 2" block) Finalizar
-              v-btn(@click="step = 2" block text) Anterior
-        //- v-card-title Iniciar sesión
-        //- v-card-text
-        //-   v-form(ref="form" v-model="valid" lazy-validation)
-        //-     v-text-field(v-model="email" label="Correo" :rules="rules.email" outlined required)
-        //-     v-text-field(v-model="password" label="Contraseña" :rules="rules.password" :type="showPassword ? 'text' : 'password'" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPassword = !showPassword" outlined required)
-        //-     div.text-right.mb-8
-        //-       nuxt-link(to="/") Olvidé mi contraseña
-        //-     v-btn(@click="submitForm" color="primary" block) Iniciar sesión
-        //-     div.text-center.mt-4
-        //-       nuxt-link(to="/app/login/registro") Aún no tengo cuenta
+              v-card-title Información de contacto
+              v-card-text
+                v-form(ref="step3" v-model="step3.valid")
+                  v-text-field(label="Nombres" v-model="formData.nombres" :rules="step3.rules.nombres" outlined required)
+                  v-text-field(label="Apellidos" v-model="formData.apellidos" :rules="step3.rules.apellidos" outlined required)
+                  v-autocomplete(v-model="formData.estado" :items="estados" label="Estado" autocomplete="off" outlined)
+                  v-autocomplete(v-model="formData.municipio" :items="mexico[formData.estado]" label="Municipio" v-if="formData.estado" autocomplete="off" outlined)
+                  v-text-field(label="Dirección" v-model="formData.direccion" :rules="step3.rules.direccion" v-if="formData.municipio" outlined required)
+
+                  v-btn(color="primary" @click="step = 3" :disabled="!step3.valid" block) Siguiente
+                  v-btn(@click="step = 1" block text) Anterior
 </template>
 <script>
+import mexico from '@/static/mexico.json'
 export default {
   data: () => ({
+    formData: {
+      email: '',
+      password1: '',
+      password2: '',
+      nombres: '',
+      apellidos: '',
+      estado: '',
+      municipio: '',
+      direccion: '',
+    },
     step: 1,
     selectedProfile: null,
     step2: {
+      valid: false,
+      rules: {
+        required: (v) => !!v || 'Campo requerido',
+        min: (v) => v.length >= 5 || 'Al menos 5 caracteres',
+      },
+    },
+    step3: {
       valid: false,
       rules: {
         nombres: [(v) => !!v || 'El nombre es requerido'],
@@ -67,13 +99,26 @@ export default {
       },
     },
   }),
+  computed: {
+    mexico() {
+      return mexico
+    },
+    estados() {
+      return Object.keys(mexico)
+    },
+    passwordMatch() {
+      return (
+        this.formData.password1 === this.formData.password2 ||
+        'Las contraseñas deben coincidir'
+      )
+    },
+  },
   methods: {
     elegir(n) {
       const perfiles = ['agricultor', 'proveedor', 'comerciante']
       this.selectedProfile = n
 
       const perfil = perfiles[this.selectedProfile]
-      console.log(perfil)
     },
     submitForm() {
       this.$refs.step2.validate()
