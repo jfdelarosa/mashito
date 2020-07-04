@@ -32,27 +32,26 @@
                 v-btn(color="primary" @click="step = 2" :disabled="selectedProfile === null" block) Siguiente
           v-stepper-content(step="2")
             v-card
-              v-card
-                v-card-title Creación de cuenta
-                v-card-text
-                  v-row
-                    v-col
-                      v-form(ref="step2" v-model="step2.valid" lazy-validation)
-                        v-text-field(label="Correo electrónico" v-model="formData.email" outlined)
-                        v-text-field(label="Contraseña" type="password" v-model="formData.password1" :rules="[step2.rules.required, step2.rules.min]" hint="Al menos 5 caracteres" outlined counter)
-                        v-text-field(label="Repetir contraseña" type="password" v-model="formData.password2" :rules="[step2.rules.required, step2.rules.min, passwordMatch]" hint="Al menos 5 caracteres" outlined counter)
-                    v-col.col-auto
-                      v-divider(vertical)
-                    v-col
-                      p O registrate usando otras plataformas:
-                      v-btn.mb-6(color="#3b5998" dark block)
-                        v-icon(left) mdi-facebook
-                        | Entrar con Facebook
-                      v-btn.mb-6(color="#D44638" dark block)
-                        v-icon(left) mdi-google
-                        | Entrar con Google
+              v-card-title Creación de cuenta
+              v-card-text
+                v-row
+                  v-col
+                    v-form(ref="step2" v-model="step2.valid")
+                      v-text-field(label="Correo electrónico" v-model="formData.email" outlined)
+                      v-text-field(label="Contraseña" type="password" v-model="formData.password1" :rules="[step2.rules.required, step2.rules.min]" hint="Al menos 5 caracteres" outlined counter)
+                      v-text-field(label="Repetir contraseña" type="password" v-model="formData.password2" :rules="[step2.rules.required, step2.rules.min, passwordMatch]" hint="Al menos 5 caracteres" outlined counter)
+                  v-col.col-auto
+                    v-divider(vertical)
+                  v-col
+                    p O registrate usando otras plataformas:
+                    v-btn.mb-6(color="#3b5998" dark block)
+                      v-icon(left) mdi-facebook
+                      | Entrar con Facebook
+                    v-btn.mb-6(color="#D44638" dark block)
+                      v-icon(left) mdi-google
+                      | Entrar con Google
 
-              v-btn(color="primary" @click="step = 3" block) Finalizar
+              v-btn(color="primary" @click="register" :disabled="!step2.valid" :loading="step2.loading" block) Siguiente
               v-btn(@click="step = 1" block text) Anterior
           v-stepper-content(step="3")
             v-card
@@ -86,9 +85,10 @@ export default {
     selectedProfile: null,
     step2: {
       valid: false,
+      loading: false,
       rules: {
         required: (v) => !!v || 'Campo requerido',
-        min: (v) => v.length >= 5 || 'Al menos 5 caracteres',
+        min: (v) => v.length >= 6 || 'Al menos 6 caracteres',
       },
     },
     step3: {
@@ -122,6 +122,23 @@ export default {
     },
     submitForm() {
       this.$refs.step2.validate()
+    },
+    register() {
+      const { email, password1 } = this.formData
+      this.$set(this.step2, 'loading', true)
+      this.$fireAuth
+        .createUserWithEmailAndPassword(email, password1)
+        .then((response) => {
+          console.log(response)
+          this.uid = response.user.uid
+          this.step = 3
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        .finally(() => {
+          this.$set(this.step2, 'loading', false)
+        })
     },
   },
 }

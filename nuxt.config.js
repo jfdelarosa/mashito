@@ -69,7 +69,7 @@ export default {
           measurementId: 'G-JY7C8YJ5G6',
         },
         services: {
-          auth: false,
+          auth: true,
           realtimeDb: true,
         },
       },
@@ -80,6 +80,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  router: {
+    middleware: 'auth',
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

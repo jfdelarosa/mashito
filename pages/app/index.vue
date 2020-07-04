@@ -1,10 +1,9 @@
-<template>
-  <v-card>
-    <v-card-title>Pagina 1</v-card-title>
-    <v-card-text>
-      <pre>{{ val }}</pre>
-    </v-card-text>
-  </v-card>
+<template lang="pug">
+  v-card
+    v-card-title Pagina 1
+    v-card-text
+      pre {{ val }}
+      pre {{ store }}
 </template>
 
 <script>
@@ -13,6 +12,11 @@ export default {
   data: () => ({
     val: null,
   }),
+  computed: {
+    store() {
+      return this.$store.state.user
+    },
+  },
   methods: {
     // Obtener el valor una vez
     getData() {
