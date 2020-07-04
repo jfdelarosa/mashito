@@ -43,7 +43,7 @@ export default {
         {
           icon: 'mdi-truck',
           title: 'Proveedor Maquinaria',
-          to: '/app/proveedormaquinaria',
+          to: '/app/proveedor/maquinaria/',
         },
       ],
       miniVariant: false,
