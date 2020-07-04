@@ -40,6 +40,11 @@ export default {
           title: 'Prueba',
           to: '/app/prueba',
         },
+        {
+          icon: 'mdi-truck',
+          title: 'Proveedor Maquinaria',
+          to: '/app/proveedormaquinaria',
+        },
       ],
       miniVariant: false,
       title: 'Mashito',
