@@ -1,7 +1,6 @@
-<template>
-  <div>
-    <h1>Pagina 2</h1>
-  </div>
+<template lang="pug">
+  div
+    h1 Pagina 2
 </template>
 
 <script>

@@ -1,8 +1,7 @@
-<template>
-  <div>
-    <h1>Landing page</h1>
-    <nuxt-link to="/app/login">Ir a la app</nuxt-link>
-  </div>
+<template lang="pug">
+  div
+    h1 Landing page
+    nuxt-link(to="/app/login") Ir a la app
 </template>
 
 <script>
