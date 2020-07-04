@@ -15,21 +15,21 @@
               v-card-text
                 v-row.mb-4(justify="center")
                   v-col
-                    v-card(@click="elegir(0)" :raised="selectedProfile == 0" outlined hover)
+                    v-card(@click="elegir(0)" :raised="selectedProfileId == 0" outlined hover)
                       v-img(src="/agricultor.svg")
                       v-card-title Agricultor
                       v-card-text Descripción
                   v-col
-                    v-card(@click="elegir(1)" :raised="selectedProfile == 1" outlined hover)
+                    v-card(@click="elegir(1)" :raised="selectedProfileId == 1" outlined hover)
                       v-img(src="/proveedor.svg")
                       v-card-title Proveedor
                       v-card-text Descripción
                   v-col
-                    v-card(@click="elegir(2)" :raised="selectedProfile == 2" outlined hover)
+                    v-card(@click="elegir(2)" :raised="selectedProfileId == 2" outlined hover)
                       v-img(src="/comerciante.svg")
                       v-card-title Comerciante
                       v-card-text Descripción
-                v-btn(color="primary" @click="step = 2" :disabled="selectedProfile === null" block) Siguiente
+                v-btn(color="primary" @click="step = 2" :disabled="selectedProfileId === null" block) Siguiente
           v-stepper-content(step="2")
             v-card
               v-card-title Creación de cuenta
@@ -80,9 +80,10 @@ export default {
       estado: '',
       municipio: '',
       direccion: '',
+      tipo: '',
     },
     step: 1,
-    selectedProfile: null,
+    selectedProfileId: null,
     step2: {
       valid: false,
       loading: false,
@@ -116,9 +117,9 @@ export default {
   methods: {
     elegir(n) {
       const perfiles = ['agricultor', 'proveedor', 'comerciante']
-      this.selectedProfile = n
+      this.selectedProfileId = n
 
-      const perfil = perfiles[this.selectedProfile]
+      this.formData.tipo = perfiles[this.selectedProfileId]
     },
     submitForm() {
       this.$refs.step2.validate()
@@ -163,9 +164,23 @@ export default {
         return
       }
 
-      const { nombres, apellidos, estado, municipio, direccion } = this.formData
+      const {
+        nombres,
+        apellidos,
+        tipo,
+        estado,
+        municipio,
+        direccion,
+      } = this.formData
 
-      this.saveUserData({ nombres, apellidos, estado, municipio, direccion })
+      this.saveUserData({
+        nombres,
+        apellidos,
+        tipo,
+        estado,
+        municipio,
+        direccion,
+      })
 
       this.$router.push('/app')
     },
