@@ -34,16 +34,18 @@ export default {
       registrar(){
             console.log("Submit...")
             
-            var gen = this.getRandomArbitrary(1,9999)
+            //var gen = this.getRandomArbitrary(1,9999)
+            var gen = this.$fireDb.ref().child('maquinaria').push().key;
             /** */
-            this.$fireDb
-            .ref(`maquinaria/`+gen)
-            .update({
+
+            let updates = {};
+            updates['/maquinaria/' + gen] = {
                 maquinaria: this.maquinaria,
                 tipo: this.tipo,
                 modelo: this.modelo,
                 costo: this.costo
-            })
+            };
+            this.$fireDb.ref().update(updates)
             .then((response) => {
                 console.log(response)
                 this.$router.push('/app/proveedor/maquinaria')

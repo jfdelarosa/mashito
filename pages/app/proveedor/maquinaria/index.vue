@@ -9,7 +9,7 @@
         v-icon(left) mdi-plus
         | Nuevo
     v-card-text
-      v-data-table(:headers="headers" :items="items" :search="search" :items-per-page="10")
+      v-data-table(:headers="headers" :items="val" :search="search" :items-per-page="10" v-if="val")
         template(v-slot:item.options="{ item }")
           v-btn(@click="editar(item.id)" icon small)
             v-icon mdi-pencil
@@ -23,25 +23,14 @@ export default {
   layout: 'app',
   data: () => ({
     search: '',
+    val: [],
     headers: [
-      { text: 'id', value: 'id', sortable: true },
-      { text: 'Nombre', value: 'nombre', sortable: true },
-      { text: 'Opciones', value: 'options', sortable: false },
+      { text: 'id', value: 'maquinaria', sortable: true },
+      { text: 'Tipo', value: 'tipo', sortable: true },
+      { text: 'Modelo', value: 'modelo', sortable: false },
+      { text: 'Costo', value: 'costo', sortable: false },
     ],
-    items: [
-      {
-        id: 1,
-        nombre: 'Insumo 1',
-      },
-      {
-        id: 2,
-        nombre: 'Insumo 2',
-      },
-      {
-        id: 3,
-        nombre: 'Insumo 3',
-      },
-    ],
+    items: null
   }),
   methods: {
     agregar() {
@@ -55,7 +44,19 @@ export default {
        * Mostrar un modal para aceptar o cancelar la eliminación y hacer  o no la petición a firebase
        */
     },
-    
+    getRealtimeData() {
+      try {
+        this.$fireDb.ref('maquinaria').on('value', (snapshot) => {
+          this.val = snapshot.val()
+          console.log(this.val)
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
+  mounted(){
+    this.getRealtimeData()
+  }
 }
 </script>
