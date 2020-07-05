@@ -15,7 +15,6 @@
             v-icon mdi-pencil
           v-btn(@click="eliminar(item.id)" icon small)
             v-icon mdi-delete
-    
 </template>
 
 <script>
@@ -30,7 +29,7 @@ export default {
       { text: 'Modelo', value: 'modelo', sortable: false },
       { text: 'Costo', value: 'costo', sortable: false },
     ],
-    items: null
+    items: null,
   }),
   methods: {
     agregar() {
@@ -45,18 +44,21 @@ export default {
        */
     },
     getRealtimeData() {
+      this.val = []
       try {
         this.$fireDb.ref('maquinaria').on('value', (snapshot) => {
-          this.val = snapshot.val()
-          console.log(this.val)
+          const valores = snapshot.val()
+          for (const key in valores) {
+            this.val.push(valores[key])
+          }
         })
       } catch (error) {
         console.log(error)
       }
-    }
+    },
   },
-  mounted(){
+  mounted() {
     this.getRealtimeData()
-  }
+  },
 }
 </script>

@@ -22,41 +22,43 @@
 export default {
   layout: 'app',
   data: () => ({
-      maquinaria: '',
-      tipo: '',
-      modelo: '',
-      costo: '',
+    maquinaria: '',
+    tipo: '',
+    modelo: '',
+    costo: '',
   }),
-  methods:{
+  methods: {
     getRandomArbitrary(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min
+      return Math.floor(Math.random() * (max - min)) + min
     },
-      registrar(){
-            console.log("Submit...")
-            
-            //var gen = this.getRandomArbitrary(1,9999)
-            var gen = this.$fireDb.ref().child('maquinaria').push().key;
-            /** */
+    registrar() {
+      console.log('Submit...')
 
-            let updates = {};
-            updates['/maquinaria/' + gen] = {
-                maquinaria: this.maquinaria,
-                tipo: this.tipo,
-                modelo: this.modelo,
-                costo: this.costo
-            };
-            this.$fireDb.ref().update(updates)
-            .then((response) => {
-                console.log(response)
-                this.$router.push('/app/proveedor/maquinaria')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            /**/
-           console.log(this.maquinaria)
-           console.log(gen)
+      //var gen = this.getRandomArbitrary(1,9999)
+      var gen = this.$fireDb.ref().child('maquinaria').push().key
+      /** */
+
+      let updates = {}
+      updates['/maquinaria/' + gen] = {
+        maquinaria: this.maquinaria,
+        tipo: this.tipo,
+        modelo: this.modelo,
+        costo: this.costo,
       }
-  }
+      this.$fireDb
+        .ref()
+        .update(updates)
+        .then((response) => {
+          console.log(response)
+          this.$router.push('/app/proveedor/maquinaria')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      /**/
+      console.log(this.maquinaria)
+      console.log(gen)
+    },
+  },
 }
 </script>
