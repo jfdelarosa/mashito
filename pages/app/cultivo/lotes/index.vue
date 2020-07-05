@@ -32,15 +32,15 @@ export default {
     items: [
       {
         id: 1,
-        nombre: 'Insumo 1',
+        nombre: 'Fertilizante raizal',
       },
       {
         id: 2,
-        nombre: 'Insumo 2',
+        nombre: 'Bomba de riego agricola',
       },
       {
         id: 3,
-        nombre: 'Insumo 3',
+        nombre: 'Machete',
       },
     ],
   }),
