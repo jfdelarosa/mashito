@@ -9,7 +9,7 @@
         v-icon(left) mdi-plus
         | Nuevo
     v-card-text
-      v-data-table(:headers="headers" :items="items" :search="search" :items-per-page="10")
+      v-data-table(:headers="headers" :items="val" :search="search" :items-per-page="10")
         template(v-slot:item.options="{ item }")
           v-btn(@click="editar(item.id)" icon small)
             v-icon mdi-pencil
@@ -22,10 +22,12 @@ export default {
   layout: 'app',
   data: () => ({
     search: '',
+    val: [],
     headers: [
-      { text: 'id', value: 'id', sortable: true },
-      { text: 'Nombre', value: 'nombre', sortable: true },
-      { text: 'Opciones', value: 'options', sortable: false },
+      { text: 'nombre', value: 'nombre', sortable: true },
+      { text: 'plantacion', value: 'platacion', sortable: true },
+      { text: 'presupuesto', value: 'presupuesto', sortable: false },
+      { text: 'maquinariauso', value: 'maquinariauso', sortable: false },
     ],
     items: [
       {
@@ -42,9 +44,14 @@ export default {
       },
     ],
   }),
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+  },
   methods: {
     agregar() {
-      this.$router.push('/app/proveedor/insumo/agregar')
+      this.$router.push('/app/cultivo/siembra/agregar')
     },
     editar(id) {
       this.$router.push(`/app/proveedor/insumo/${id}`)
@@ -54,6 +61,26 @@ export default {
        * Mostrar un modal para aceptar o cancelar la eliminación y hacer  o no la petición a firebase
        */
     },
+    getRealtimeData() {
+      this.val = []
+      try {
+        this.$fireDb
+          .ref('usuarios/' + this.user.uid + '/siembras')
+          .on('value', (snapshot) => {
+            const valores = snapshot.val()
+            for (const key in valores) {
+              this.val.push(valores[key])
+              console.log(valores[key])
+            }
+          })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
+  mounted() {
+    this.getRealtimeData()
+    console.log(this.user)
   },
 }
 </script>
