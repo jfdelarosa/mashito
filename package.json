@@ -14,7 +14,8 @@
     "@nuxtjs/firebase": "^6.1.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "firebase": "^7.15.5",
-    "nuxt": "^2.13.3"
+    "nuxt": "^2.13.3",
+    "vue-grid-layout": "^2.3.7"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",

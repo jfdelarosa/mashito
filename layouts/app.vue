@@ -38,7 +38,7 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-view-dashboard',
           title: 'Inicio',
           to: '/app/',
         },
