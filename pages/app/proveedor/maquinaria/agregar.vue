@@ -27,6 +27,11 @@ export default {
     modelo: '',
     costo: '',
   }),
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+  },
   methods: {
     getRandomArbitrary(min, max) {
       return Math.floor(Math.random() * (max - min)) + min
@@ -35,11 +40,15 @@ export default {
       console.log('Submit...')
 
       //var gen = this.getRandomArbitrary(1,9999)
-      var gen = this.$fireDb.ref().child('maquinaria').push().key
+      var gen = this.$fireDb
+        .ref('usuarios/' + this.user.uid)
+        .child('maquinaria')
+        .push().key
       /** */
 
       let updates = {}
-      updates['/maquinaria/' + gen] = {
+
+      updates['usuarios/' + this.user.uid + '/maquinaria/' + gen] = {
         maquinaria: this.maquinaria,
         tipo: this.tipo,
         modelo: this.modelo,
@@ -58,7 +67,11 @@ export default {
       /**/
       console.log(this.maquinaria)
       console.log(gen)
+      console.log(this.user)
     },
+  },
+  mounted() {
+    console.log(this.user)
   },
 }
 </script>

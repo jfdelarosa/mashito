@@ -31,6 +31,11 @@ export default {
     ],
     items: null,
   }),
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+  },
   methods: {
     agregar() {
       this.$router.push('/app/proveedor/maquinaria/agregar')
@@ -46,12 +51,14 @@ export default {
     getRealtimeData() {
       this.val = []
       try {
-        this.$fireDb.ref('maquinaria').on('value', (snapshot) => {
-          const valores = snapshot.val()
-          for (const key in valores) {
-            this.val.push(valores[key])
-          }
-        })
+        this.$fireDb
+          .ref('usuarios/' + this.user.uid + '/maquinaria')
+          .on('value', (snapshot) => {
+            const valores = snapshot.val()
+            for (const key in valores) {
+              this.val.push(valores[key])
+            }
+          })
       } catch (error) {
         console.log(error)
       }
@@ -59,6 +66,7 @@ export default {
   },
   mounted() {
     this.getRealtimeData()
+    console.log(this.user)
   },
 }
 </script>
