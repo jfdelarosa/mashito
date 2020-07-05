@@ -50,7 +50,7 @@ export default {
         {
           icon: 'mdi-drag',
           title: 'Cultivos',
-          to: '/app/cultivo',
+          to: '/app/cultivo/siembra',
         },
         {
           icon: 'mdi-map',
