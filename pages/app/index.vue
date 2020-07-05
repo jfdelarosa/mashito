@@ -66,7 +66,7 @@ var testLayout = [
     w: 3,
     h: 6,
     i: '3',
-    title: 'Widget 3',
+    title: 'Clima',
     widget: 'Weather',
   },
 ]
