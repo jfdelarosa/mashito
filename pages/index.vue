@@ -8,8 +8,8 @@
         nuxt-link.menu-item(to="/app/login/registro") Registrarse
     .header.center
       .left
-        h1 Titulo
-        h3 Gestiona tus cultivos, comparte experiencias con otros sembradores y encuentra lo que necesitas.
+        h1 ¡La administración agricola puede ser fácil!
+        h3 Elimina tus cuellos de botella y mejora tus procesos de una forma sencilla y eficiente.
         a.cta(href="#") ¡Contactar ahora!
       .middle
       .right
@@ -86,14 +86,16 @@ export default {
     padding: 3rem 0 4rem 0;
     h1 {
       color: #2f3233;
-      font-weight: 900;
+      font-weight: 800;
       font-size: 3rem;
+      margin-top: 0;
     }
     h3 {
       color: #2f3233;
       font-weight: 500;
       font-size: 1.5rem;
       margin-bottom: 1.5rem;
+      line-height: 2.2rem;
     }
     .cta {
       background: #009688;
@@ -108,13 +110,13 @@ export default {
       }
     }
     .left {
-      flex: 2;
+      flex: 4;
     }
     .middle {
       flex: 1;
     }
     .right {
-      flex: 4;
+      flex: 5;
     }
   }
   #section-features {
