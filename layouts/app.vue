@@ -9,11 +9,18 @@
             v-list-item-subtitle {{ user.email }}
         v-divider
       v-list(nav dense)
-        v-list-item(v-for="(item, i) in items" :key="i" :to="item.to" router exact)
+        template(v-for="(item, i) in items")
+          v-divider(v-if="item.divider")
+          v-list-item(:to="item.to" router exact v-else)
+            v-list-item-action
+              v-icon {{ item.icon }}
+            v-list-item-content
+              v-list-item-title(v-text="item.title")
+        v-list-item(@click="logout")
           v-list-item-action
-            v-icon {{ item.icon }}
+            v-icon mdi-logout
           v-list-item-content
-            v-list-item-title(v-text="item.title")
+            v-list-item-title Salir
     v-app-bar(color="teal" clipped-left fixed app dark)
       v-app-bar-nav-icon(@click.stop="miniVariant = !miniVariant")
       v-toolbar-title(v-text="title")
@@ -32,7 +39,7 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'index',
+          title: 'Inicio',
           to: '/app/',
         },
         {
@@ -41,14 +48,25 @@ export default {
           to: '/app/prueba',
         },
         {
+          icon: 'mdi-map',
+          title: 'Lotes y cultivos',
+          to: '/app/lotes',
+        },
+        {
           icon: 'mdi-package-variant-closed',
-          title: 'Mis insumos',
+          title: 'Inventario',
           to: '/app/proveedor/insumo/',
         },
         {
           icon: 'mdi-truck',
-          title: 'Proveedor Maquinaria',
+          title: 'Maquinaria',
           to: '/app/proveedor/maquinaria/',
+        },
+        { divider: true },
+        {
+          icon: 'mdi-cog',
+          title: 'Ajustes',
+          to: '/app/ajustes',
         },
       ],
       miniVariant: false,
@@ -58,6 +76,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.user || {}
+    },
+  },
+  methods: {
+    logout() {
+      window.location.reload()
     },
   },
 }

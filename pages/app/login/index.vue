@@ -32,6 +32,7 @@ export default {
         const response = snapshot.val()
 
         this.$store.commit('updateUser', response)
+        this.$router.push('/app/')
       })
     },
     submitForm() {
@@ -41,7 +42,6 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then((response) => {
             this.getUser(response.user.uid)
-            this.$router.push('/app/')
           })
           .catch((error) => {
             console.log(error)
