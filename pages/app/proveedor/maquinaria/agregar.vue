@@ -12,7 +12,7 @@
                 v-col
                   v-select(:items="itemsMarcas" label="modelo" v-model="modelo")
                 v-col
-                    v-text-field(label="costo por hectarea" v-model="costo")
+                    v-text-field(label="costo por hectarea" v-model="costo" prefix="$")
         v-btn(@click="registrar()" color="success")
             v-icon(left) mdi-content-save
             | Guardar
