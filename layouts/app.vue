@@ -43,11 +43,6 @@ export default {
           to: '/app/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Prueba',
-          to: '/app/prueba',
-        },
-        {
           icon: 'mdi-map',
           title: 'Lotes',
           to: '/app/cultivo/lotes/',

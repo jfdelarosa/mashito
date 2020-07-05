@@ -39,7 +39,7 @@ var testLayout = [
     w: 2,
     h: 1,
     i: '0',
-    title: 'Widget 1',
+    title: 'Gestión administrativa',
     text: 'Contenido del widget',
   },
   {
@@ -48,7 +48,7 @@ var testLayout = [
     w: 4,
     h: 1,
     i: '1',
-    title: 'Widget 2',
+    title: 'Gestión operacional',
     text: 'Contenido del widget',
   },
   {
@@ -57,7 +57,7 @@ var testLayout = [
     w: 3,
     h: 2,
     i: '2',
-    title: 'Widget 3',
+    title: 'Proyecciones del campo',
     text: 'Contenido del widget',
   },
   {
