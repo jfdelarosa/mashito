@@ -19,8 +19,9 @@ export default {
     loading: false,
     valid: false,
     showPassword: false,
-    email: '',
-    password: '',
+    email:
+      process.env.NODE_ENV === 'development' ? 'jfdelarosa@outlook.com' : '',
+    password: process.env.NODE_ENV === 'development' ? '123123' : '',
     rules: {
       email: [(v) => !!v || 'El correo es requerido'],
       password: [(v) => !!v || 'La contraseña es requerida'],

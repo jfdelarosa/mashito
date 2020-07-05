@@ -11,8 +11,10 @@
         h1 Titulo
         h3 Gestiona tus cultivos, comparte experiencias con otros sembradores y encuentra lo que necesitas.
         a.cta(href="#") ¡Contactar ahora!
+      .middle
       .right
         img.svg(src="granjero.svg")
+    section#section-1
 </template>
 
 <script>
@@ -52,9 +54,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    img {
-      width: 50vw;
-    }
+    padding: 3rem 0 4rem 0;
     h1 {
       color: #2f3233;
       font-weight: 900;
@@ -74,10 +74,23 @@ export default {
       color: white;
       text-decoration: none;
       font-weight: 500;
+      &:hover {
+        background: #26a69a;
+      }
+    }
+    .left {
+      flex: 2;
+    }
+    .middle {
+      flex: 1;
     }
     .right {
-      padding-left: 4rem;
+      flex: 4;
     }
+  }
+  #section-1 {
+    background: #e0e9f7;
+    padding: 3rem;
   }
 }
 </style>
