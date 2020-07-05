@@ -15,6 +15,7 @@
             v-icon mdi-pencil
           v-btn(@click="eliminar(item.id)" icon small)
             v-icon mdi-delete
+    
 </template>
 
 <script>
@@ -54,6 +55,7 @@ export default {
        * Mostrar un modal para aceptar o cancelar la eliminación y hacer  o no la petición a firebase
        */
     },
+    
   },
 }
 </script>
