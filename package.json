@@ -13,6 +13,7 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/firebase": "^6.1.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "date-fns": "^2.14.0",
     "firebase": "^7.15.5",
     "nuxt": "^2.13.3",
     "vue-grid-layout": "^2.3.7"

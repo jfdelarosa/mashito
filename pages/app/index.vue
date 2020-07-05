@@ -19,7 +19,9 @@ div
       :i="item.i"
       :key="item.i"
     )
-      widget(:value="item")
+      template(v-if="item.widget")
+        component(:is="item.widget" :value="item")
+      widget(:value="item" v-else)
   //- v-card
   //-   v-card-title Pagina 1
   //-   v-card-text
@@ -29,6 +31,7 @@ div
 
 <script>
 import VueGridLayout from 'vue-grid-layout'
+import Weather from '@/components/Weather'
 var testLayout = [
   {
     x: 0,
@@ -61,10 +64,10 @@ var testLayout = [
     x: 3,
     y: 1,
     w: 3,
-    h: 1,
-    i: '2',
+    h: 6,
+    i: '3',
     title: 'Widget 3',
-    text: 'Contenido del widget',
+    widget: 'Weather',
   },
 ]
 export default {
@@ -72,6 +75,7 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
+    Weather,
   },
   data: () => ({
     val: null,

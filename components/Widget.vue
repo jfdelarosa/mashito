@@ -11,6 +11,8 @@
           v-list-item(@click="")
             v-list-item-title Eliminar
     v-card-text(v-if="value.text") {{value.text}}
+    v-card-text(v-else)
+      slot
 </template>
 
 <script>
