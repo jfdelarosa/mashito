@@ -27,7 +27,20 @@ export default {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: 'https://rsms.me/inter/inter.css',
+      },
+    ],
   },
   /*
    ** Global CSS
