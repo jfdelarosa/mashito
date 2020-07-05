@@ -48,14 +48,14 @@ export default {
           to: '/app/prueba',
         },
         {
-          icon: 'mdi-drag',
-          title: 'Cultivos',
-          to: '/app/cultivo/siembra',
-        },
-        {
           icon: 'mdi-map',
           title: 'Lotes',
           to: '/app/cultivo/lotes/',
+        },
+        {
+          icon: 'mdi-drag',
+          title: 'Mis cultivos',
+          to: '/app/cultivo/siembra',
         },
         {
           icon: 'mdi-package-variant-closed',

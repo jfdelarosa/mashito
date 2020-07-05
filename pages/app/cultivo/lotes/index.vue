@@ -44,7 +44,7 @@ export default {
   }),
   methods: {
     agregar() {
-      this.$router.push('/app/proveedor/insumo/agregar')
+      this.$router.push('/app/cultivo/lotes/agregar')
     },
     editar(id) {
       this.$router.push(`/app/proveedor/insumo/${id}`)

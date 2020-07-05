@@ -1,7 +1,7 @@
 <template lang="pug">
   v-card
     v-card-title
-      | Mis siembras
+      | Mis cultivos
       v-spacer
       v-spacer
       v-text-field.ma-2(v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details)
