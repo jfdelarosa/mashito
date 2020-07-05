@@ -5,12 +5,12 @@
         v-container
             v-row
                 v-col
-                    v-text-field(label="maquinaria" v-model="maquinaria")
+                  v-text-field(label="maquinaria" v-model="maquinaria")
                 v-col
-                    v-text-field(label="tipo" v-model="tipo")
+                  v-select(:items="items" label="tipo" v-model="tipo")
             v-row
                 v-col
-                    v-text-field(label="modelo" v-model="modelo")
+                  v-select(:items="itemsMarcas" label="modelo" v-model="modelo")
                 v-col
                     v-text-field(label="costo por hectarea" v-model="costo")
         v-btn(@click="registrar()" color="success")
@@ -26,6 +26,57 @@ export default {
     tipo: '',
     modelo: '',
     costo: '',
+    items: [
+      'Abonadora',
+      'Arado',
+      'Arado cincel',
+      'Excavadora',
+      'Cortadora de césped',
+      'Cosechadora',
+      'Consechadora de algodón',
+      'Cocechadora de cereales',
+      'Cosechadora de forraje',
+      'Cosechadora de remolacha',
+      'Cultivador',
+      'Descompactador',
+      'Desmontadora de algodón',
+      'Desbrozadora de motoguadaña',
+      'Desgranadora',
+      'Desvaradora',
+      'Empacadora',
+      'Fumigadora',
+      'Rastra de dientes',
+      'Motocultor',
+      'Motor para riego',
+      'Plataforma de recogida de frutas',
+      'Pulverizadora',
+      'Remolque',
+      'Rodillo',
+      'Rotocultor',
+      'Secadora de granos',
+      'Segadora',
+      'Sembradora',
+      'Subsolador',
+      'Tractor',
+      'Moledora',
+      'Vendimiadora',
+      'Vibrocultivador',
+    ],
+    itemsMarcas: [
+      'Kubota',
+      'John Deere AR',
+      'Fendt',
+      'Massey Ferguson',
+      'Deutz',
+      'New Holland',
+      'Case',
+      'Valtra',
+      'Claas',
+      'Lamborghini',
+      'Ford',
+      'Lanz Bulldog',
+      'Otro',
+    ],
   }),
   computed: {
     user() {
