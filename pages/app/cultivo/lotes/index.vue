@@ -9,7 +9,7 @@
         v-icon(left) mdi-plus
         | Nuevo
     v-card-text
-      v-data-table(:headers="headers" :items="items" :search="search" :items-per-page="10")
+      v-data-table(:headers="headers" :items="val" :search="search" :items-per-page="10")
         template(v-slot:item.options="{ item }")
           v-btn(@click="editar(item.id)" icon small)
             v-icon mdi-pencil
@@ -22,10 +22,12 @@ export default {
   layout: 'app',
   data: () => ({
     search: '',
+    val: [],
     headers: [
-      { text: 'id', value: 'id', sortable: true },
-      { text: 'Nombre', value: 'nombre', sortable: true },
-      { text: 'Opciones', value: 'options', sortable: false },
+      { text: 'ubicacion', value: 'ubicacion', sortable: true },
+      { text: 'hectareas', value: 'hectareas', sortable: true },
+      { text: 'riego', value: 'riego', sortable: false },
+      { text: 'preparado', value: 'preparado', sortable: false },
     ],
     items: [
       {
@@ -42,6 +44,11 @@ export default {
       },
     ],
   }),
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+  },
   methods: {
     agregar() {
       this.$router.push('/app/cultivo/lotes/agregar')
@@ -54,6 +61,25 @@ export default {
        * Mostrar un modal para aceptar o cancelar la eliminación y hacer  o no la petición a firebase
        */
     },
+    getRealtimeData() {
+      this.val = []
+      try {
+        this.$fireDb
+          .ref('usuarios/' + this.user.uid + '/lotes')
+          .on('value', (snapshot) => {
+            const valores = snapshot.val()
+            for (const key in valores) {
+              this.val.push(valores[key])
+            }
+          })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
+  mounted() {
+    this.getRealtimeData()
+    console.log(this.user)
   },
 }
 </script>
