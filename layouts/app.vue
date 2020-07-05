@@ -41,6 +41,11 @@ export default {
           to: '/app/prueba',
         },
         {
+          icon: 'mdi-package-variant-closed',
+          title: 'Mis insumos',
+          to: '/app/proveedor/insumo/',
+        },
+        {
           icon: 'mdi-truck',
           title: 'Proveedor Maquinaria',
           to: '/app/proveedor/maquinaria/',
